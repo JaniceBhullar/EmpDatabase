@@ -1,0 +1,51 @@
+[
+    {
+      "id": "1001",
+      "imgUrl": "https://hub.dummyapis.com/Image?text=CK&height=120&width=120",
+      "firstName": "Casimir",
+      "lastName": "Kovacek",
+      "email": "Casimir.Kovacek@dummyapis.com",
+      "contactNumber": "4445097507",
+      "age": "32",
+      "dob": "28/05/1991",
+      "salary": "1000000",
+      "address": "address1"
+    },
+    {
+      "id": "1002",
+      "imgUrl": "https://hub.dummyapis.com/Image?text=AS&height=120&width=120",
+      "firstName": "Angelica",
+      "lastName": "Schuster",
+      "email": "Angelica.Schuster@dummyapis.com",
+      "contactNumber": "4605199914",
+      "age": "69",
+      "dob": "24/07/1954",
+      "salary": "2000000",
+      "address": "address2"
+    },
+    {
+      "id": "1003",
+      "imgUrl": "https://hub.dummyapis.com/Image?text=AS&height=120&width=120",
+      "firstName": "Aurelio",
+      "lastName": "Stroman",
+      "email": "Aurelio.Stroman@dummyapis.com",
+      "contactNumber": "4160894636",
+      "age": "68",
+      "dob": "29/05/1955",
+      "salary": "300000",
+      "address": "Address3"
+    },
+  
+    {
+      "id": "1004",
+      "imgUrl": "https://hub.dummyapis.com/Image?text=AS&height=120&width=120",
+      "firstName": "Enamue",
+      "lastName": "White",
+      "email": "Aurelio.Stroman@dummyapis.com",
+      "contactNumber": "4160894636",
+      "age": "68",
+      "dob": "29/05/1955",
+      "salary": "300000",
+      "address": "Address4"
+    }
+  ]
