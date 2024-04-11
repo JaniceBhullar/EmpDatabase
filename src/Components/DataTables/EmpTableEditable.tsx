@@ -1,5 +1,5 @@
-import { ChangeEvent } from "react";
-import { UserData } from "../../App";
+import { ChangeEvent, useContext } from "react";
+import { DataContext, UserData } from "../store/CreateContext";
 
 type EmpEditableProps = {
   emp: UserData;
@@ -14,8 +14,13 @@ export default function EmpTableEditable({
   editData,
   handleEmpChange,
   handleEditSubmit,
-  handleCancelClick,
 }: EmpEditableProps) {
+  const dataCtxt = useContext(DataContext)!;
+
+  const handleCancelClick = () => {
+    dataCtxt.setEditID("");
+  };
+
   return (
     <>
       <td>{emp.id}</td>

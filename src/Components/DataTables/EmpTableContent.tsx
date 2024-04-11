@@ -1,17 +1,13 @@
-import { type UserData } from "../../App";
 import { BsFillPencilFill, BsFillTrashFill } from "react-icons/bs";
+import { DataContext, UserData } from "../store/CreateContext";
+import { useContext } from "react";
 
-type EmpTableContentProps = {
+type EmpContentProps = {
   emp: UserData;
-  onDelete: (id: string) => void;
-  handleEditClick: (e:Event, emp: UserData) => void;
 };
+export default function EmpTableContent({ emp }: EmpContentProps) {
+  const dataCtxt = useContext(DataContext)!;
 
-export default function EmpTableContent({
-  emp,
-  onDelete,
-  handleEditClick,
-}: EmpTableContentProps) {
   return (
     <>
       <td>{emp.id}</td>
@@ -33,10 +29,10 @@ export default function EmpTableContent({
       <td>{emp.salary}</td>
       <td>{emp.address}</td>
       <td>
-        <BsFillTrashFill onClick={() => onDelete(emp.id)} />
+        <BsFillTrashFill onClick={() => dataCtxt.handleDeleteEmp(emp.id)} />
       </td>
       <td>
-        <BsFillPencilFill onClick={(e) => handleEditClick(e, emp)} />
+        <BsFillPencilFill onClick={() => dataCtxt.handleEditClick(emp)} />
       </td>
     </>
   );

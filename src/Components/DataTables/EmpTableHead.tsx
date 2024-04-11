@@ -1,94 +1,12 @@
 import EmpTableContent from "./EmpTableContent";
 import "./EmpTableHead.css";
-import { ChangeEvent, useState } from "react";
 import AddEmpModal from "./AddEmpModal";
-import { type UserData } from "../../App";
 import EmpTableEditable from "./EmpTableEditable";
+import { useContext } from "react";
+import { DataContext } from "../store/CreateContext";
 
-export type EmpDataProps = {
-  empDb: UserData[];
-  setEmpDb: (value: UserData[]) => void;
-  onDelete: (id: string) => void;
-  handleSubmit: (newEmp: UserData) => void;
-};
-
-export type ModalClose = () => void;
-
-export default function EmpTableHead({
-  empDb,
-  setEmpDb,
-  onDelete,
-  handleSubmit,
-}: EmpDataProps) {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [editID, setEditID] = useState("");
-  const [editData, setEditData] = useState({
-    id: "",
-    imgUrl: "",
-    firstName: "",
-    lastName: "",
-    email: "",
-    contactNumber: "",
-    age: "",
-    dob: "",
-    salary: "",
-    address: "",
-  });
-
-  const handleEditClick = (e: Event, emp: UserData) => {
-    e.preventDefault();
-    setEditID(emp.id);
-
-    const editFormValues = {
-      id: emp.id,
-      imgUrl: emp.imgUrl,
-      firstName: emp.firstName,
-      lastName: emp.lastName,
-      email: emp.email,
-      contactNumber: emp.contactNumber,
-      age: emp.age,
-      dob: emp.dob,
-      salary: emp.salary,
-      address: emp.address,
-    };
-    setEditData(editFormValues);
-  };
-
-  const handleEmpChange = (e: ChangeEvent): void => {
-    e.preventDefault();
-    setEditData({
-      ...editData,
-      [(e.target as HTMLInputElement).name]: (e.target as HTMLInputElement)
-        .value,
-    });
-  };
-
-  const handleEditSubmit = () => {
-    const editedContact = {
-      id: editID,
-      imgUrl: editData.imgUrl,
-      firstName: editData.firstName,
-      lastName: editData.lastName,
-      email: editData.email,
-      contactNumber: editData.contactNumber,
-      age: editData.age,
-      dob: editData.dob,
-      salary: editData.salary,
-      address: editData.address,
-    };
-
-    const newEmp = [...empDb];
-    console.log(newEmp);
-    const editIndex = empDb.findIndex((emp) => emp.id === editID);
-
-    newEmp[editIndex] = editedContact;
-    setEmpDb(newEmp);
-    setEditID("");
-  };
-
-  const handleCancelClick = () => {
-    setEditID("");
-  };
+export default function EmpTableHead() {
+  const dataCtxt = useContext(DataContext)!;
 
   return (
     <>
@@ -111,40 +29,29 @@ export default function EmpTableHead({
           </tr>
         </thead>
         <tbody>
-          {empDb.map((emp) => (
+          {dataCtxt.empDb.map((emp) => (
             <tr key={emp.id}>
               <>
-                {editID === emp.id ? (
+                {dataCtxt.editID === emp.id ? (
                   <EmpTableEditable
                     emp={emp}
-                    editData={editData}
-                    handleEmpChange={handleEmpChange}
-                    handleEditSubmit={handleEditSubmit}
-                    handleCancelClick={handleCancelClick}
+                    editData={dataCtxt.editData}
+                    handleEmpChange={dataCtxt.handleEmpChange}
+                    handleEditSubmit={dataCtxt.handleEditSubmit}
+                    handleCancelClick={dataCtxt.handleCancelClick}
                   />
                 ) : (
-                  <EmpTableContent
-                    emp={emp}
-                    onDelete={onDelete}
-                    handleEditClick={handleEditClick}
-                  />
+                  <EmpTableContent emp={emp} />
                 )}
               </>
             </tr>
           ))}
         </tbody>
       </table>
-      <button onClick={() => setModalOpen(true)} className="btn">
+      <button onClick={() => dataCtxt.setModalOpen(true)} className="btn">
         Add
       </button>
-      {modalOpen && (
-        <AddEmpModal
-          handleSubmit={handleSubmit}
-          closeModal={() => {
-            setModalOpen(false);
-          }}
-        />
-      )}
+      {dataCtxt.modalOpen && <AddEmpModal />}
     </>
   );
 }

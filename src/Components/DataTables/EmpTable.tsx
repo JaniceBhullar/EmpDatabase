@@ -1,32 +1,10 @@
-import { type UserData } from "../../App";
+import { useContext } from "react";
+import { DataContext } from "../store/CreateContext";
 import EmpTableHead from "./EmpTableHead";
 
-export type EmpTableProps = {
-  empDb: UserData[];
-  setEmpDb: (value: UserData[]) => void;
-  // setEmpDb: React.Dispatch<React.SetStateAction<UserData[]>>;
-  onDelete: (id: string) => void;
-  handleSubmit: (newEmp: UserData) => void;
-};
-
-export default function EmpTable({
-  empDb,
-  setEmpDb,
-  onDelete,
-  handleSubmit,
-}: EmpTableProps) {
+export default function EmpTable() {
+  const dataCtxt = useContext(DataContext)!;
   return (
-    <>
-      {empDb.length ? (
-        <EmpTableHead
-          empDb={empDb}
-          setEmpDb={setEmpDb}
-          onDelete={onDelete}
-          handleSubmit={handleSubmit}
-        />
-      ) : (
-        <p> No Data Found !!! </p>
-      )}
-    </>
+    <>{dataCtxt.empDb.length ? <EmpTableHead /> : <p> No Data Found !!! </p>}</>
   );
 }

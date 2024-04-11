@@ -1,14 +1,10 @@
+import { DataContext, UserData } from "../store/CreateContext";
 import "./AddEmpModal.css";
-import { ModalClose } from "./EmpTableHead";
-import { type UserData } from "../../App";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 
-type ModalProps = {
-  closeModal: ModalClose;
-  handleSubmit: (newEmp: UserData) => void;
-};
+export default function AddEmpModal() {
+  const dataCtxt = useContext(DataContext)!;
 
-export default function AddEmpModal({ closeModal, handleSubmit }: ModalProps) {
   const [newEmp, setNewEmp] = useState<UserData>({
     id: "",
     imgUrl: "",
@@ -39,7 +35,7 @@ export default function AddEmpModal({ closeModal, handleSubmit }: ModalProps) {
   const handleSubmitForm = (e: React.SyntheticEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
-    handleSubmit(newEmp);
+    dataCtxt.handleSubmit(newEmp);
   };
 
   return (
@@ -48,7 +44,7 @@ export default function AddEmpModal({ closeModal, handleSubmit }: ModalProps) {
         className="modal-container"
         onClick={(e) => {
           if (e.target instanceof HTMLDivElement) {
-            closeModal();
+            dataCtxt.setModalOpen;
           }
         }}
       >
@@ -158,7 +154,7 @@ export default function AddEmpModal({ closeModal, handleSubmit }: ModalProps) {
           <button type="submit" className="btn" onClick={handleSubmitForm}>
             Submit
           </button>
-          <button className="btn" onClick={closeModal}>
+          <button className="btn" onClick={() => dataCtxt.closeModal()}>
             Close
           </button>
         </div>
